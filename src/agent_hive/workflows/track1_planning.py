@@ -70,13 +70,36 @@ class NewPlanningWorkflow(Workflow):
         #     - Change memory or retry logic
         # =========================================================
 
+        agent_descriptions += "\n🎯 **AVAILABLE AGENTS & THEIR SPECIALIZED CAPABILITIES:**\n"
+        
         for ii, aagent in enumerate(task.agents):
-            agent_descriptions += f"\n({ii + 1}) Agent name: {aagent.name}"
-            agent_descriptions += f"\nAgent description: {aagent.description}"
+            # Enhanced agent formatting with clear capability mapping
+            agent_descriptions += f"\n🔧 **AGENT {ii + 1}: {aagent.name.upper()}**"
+            agent_descriptions += f"\n   📋 Description: {aagent.description}"
+            
+            # Add capability tags based on agent name patterns
+            if "IoT" in aagent.name or "iot" in aagent.name.lower():
+                agent_descriptions += f"\n   🏷️ Specializations: [DATA_RETRIEVAL, ASSET_DISCOVERY, SENSOR_METADATA, HISTORICAL_DATA]"
+                agent_descriptions += f"\n   💡 Best for: Finding sites, assets, downloading sensor data, retrieving metadata"
+            elif "Failure" in aagent.name or "FMSR" in aagent.name:
+                agent_descriptions += f"\n   🏷️ Specializations: [FAILURE_ANALYSIS, SENSOR_MAPPING, MAINTENANCE_INSIGHTS]"
+                agent_descriptions += f"\n   💡 Best for: Identifying failure modes, mapping sensors to failures, maintenance recommendations"
+            
+            # Enhanced task examples with context
             if "task_examples" in aagent.__dict__ and aagent.task_examples:
-                agent_descriptions += f"\nTasks that agent can solve:"
-                for idx, task_example in enumerate(aagent.task_examples, start=1):
-                    agent_descriptions += f"\n{idx}. {task_example}"
+                agent_descriptions += f"\n   📚 **Proven Use Cases:**"
+                for idx, task_example in enumerate(aagent.task_examples[:3], start=1):  # Limit to top 3 examples
+                    agent_descriptions += f"\n      {idx}. {task_example}"
+                if len(aagent.task_examples) > 3:
+                    agent_descriptions += f"\n      ... and {len(aagent.task_examples) - 3} more capabilities"
+            
+            # Add tool-based capability hints
+            if hasattr(aagent, 'tools') and aagent.tools:
+                tool_names = [tool.name if hasattr(tool, 'name') else str(tool) for tool in aagent.tools]
+                agent_descriptions += f"\n   🛠️ Tools Available: {', '.join(tool_names[:3])}"
+                if len(tool_names) > 3:
+                    agent_descriptions += f" (+{len(tool_names) - 3} more)"
+            
             agent_descriptions += "\n"
 
         # =========================================================
@@ -165,28 +188,48 @@ class NewPlanningWorkflow(Workflow):
         # =========================================================
 
         prompt = f"""
-🚀 You are an AI assistant tasked with creating a step-by-step plan to solve a complex problem using the external agents provided.  
+🎯 **EXPERT TASK PLANNER** - Create an optimal step-by-step execution plan
 
-⚠️ Constraints:
-- Only use the agents listed below. No new agents may be added.
-- The base ReAct agent and Executor component are fixed. Do not change them.
-- Produce a plan with fewer than 5 steps.
-- Include Task, Agent, Dependency, and ExpectedOutput for each step.
-- Make instructions clear, unambiguous, and actionable.
+**Your Mission:** Analyze the problem and create a strategic plan using the specialized agents below.
 
-Each step must follow this format:
-#Task<N>: <Describe your task here>
-#Agent<N>: <agent_name>
-#Dependency<N>: <use #S1, #S2, ... or None>
-#ExpectedOutput<N>: <Expected output>
+🧠 **PLANNING STRATEGY:**
+1. **Identify the core task type** - Is this data retrieval, analysis, or both?
+2. **Choose the right agent sequence** - Start with data gathering (IoT), then analysis (FMSR)
+3. **Minimize steps** - Aim for 2-4 steps maximum for efficiency
+4. **Ensure data flow** - Each step should build upon previous results
 
-## Here are the available agents: ##
+⚡ **CRITICAL RULES:**
+- ✅ Use ONLY the agents provided below
+- ✅ Maximum 4 steps (prefer 2-3 for simple tasks)
+- ✅ Each step must have: Task, Agent, Dependency, ExpectedOutput
+- ✅ Make tasks specific and actionable
+- ✅ Use proper dependency references (#S1, #S2, etc.)
+
+📋 **REQUIRED FORMAT:**
+```
+#Task1: <Specific, actionable task description>
+#Agent1: <exact_agent_name_from_list>
+#Dependency1: None
+#ExpectedOutput1: <Clear description of expected result>
+
+#Task2: <Next specific task>
+#Agent2: <exact_agent_name_from_list>
+#Dependency2: #S1
+#ExpectedOutput2: <Clear description of expected result>
+```
+
 {agent_descriptions}
 
-## Problem to solve: ##
+🎯 **PROBLEM TO SOLVE:**
 {task_description}
 
-Output (your generated plan) ⬇️:
+💡 **PLANNING TIPS:**
+- For data queries: Start with IoT agent to gather information
+- For analysis: Use FMSR agent with IoT data as input
+- Keep tasks focused and specific
+- Ensure each step has a clear, measurable output
+
+**Your optimized plan:**
 """
         # =========================================================
         # End of participant editable section
