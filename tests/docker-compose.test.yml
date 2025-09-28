@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  assetopsbench-tests:
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: tests/Dockerfile.test
+    volumes:
+      # Mount source code for development
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../scenarios:/app/scenarios
+    environment:
+      - PYTHONPATH=/app/src:/app/tests
+    command: ["python", "tests/run_all_tests.py"]
+
+  # Optional: Run specific test suites
+  scenario-validation-tests:
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: tests/Dockerfile.test
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../scenarios:/app/scenarios
+    environment:
+      - PYTHONPATH=/app/src:/app/tests
+    command: ["python", "tests/run_all_tests.py", "scenario_validation"]
+
+  real-scenarios-tests:
+    build:
+      context: ..
+      dockerfile: tests/Dockerfile.test
+    volumes:
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../scenarios:/app/scenarios
+    environment:
+      - PYTHONPATH=/app/src:/app/tests
+    command: ["python", "tests/run_all_tests.py", "real_scenarios"]

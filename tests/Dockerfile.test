@@ -1,0 +1,32 @@
+# Dockerfile for running AssetOpsBench tests
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies including build tools
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    build-essential \
+    g++ \
+    gcc \
+    make \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY benchmark/basic_requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Copy the entire project
+COPY . /app/
+
+# Set Python path to include src directory
+ENV PYTHONPATH=/app/src:$PYTHONPATH
+
+# Make test scripts executable
+RUN chmod +x tests/run_tests.py tests/run_all_tests.py
+
+# Default command: run all tests
+CMD ["python", "tests/run_all_tests.py"]

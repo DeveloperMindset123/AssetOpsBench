@@ -4,7 +4,7 @@ import pathlib
 from typing import List, Iterator, Dict, Any
 from pydantic import ValidationError
 
-from scenarios import Scenario
+from assetopsbench.core.scenarios import Scenario
 
 def read_json_file(file_path: pathlib.Path) -> List[Dict[str, Any]]:
     """Read and parse JSON file, handling both arrays and single objects."""

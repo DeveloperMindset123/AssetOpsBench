@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  assetopsbench-tests-simple:
+    build:
+      context: ..
+      dockerfile: tests/Dockerfile.simple
+    volumes:
+      # Mount source code for development
+      - ../src:/app/src
+      - ../tests:/app/tests
+      - ../scenarios:/app/scenarios
+    environment:
+      - PYTHONPATH=/app/src:/app/tests
+    command: ["python", "tests/run_all_tests.py"]
