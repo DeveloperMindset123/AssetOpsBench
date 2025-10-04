@@ -31,10 +31,13 @@
 ---
 
 ## Announcements
-- **2025-06-01**: AssetOpsBench v1.0 released with 140+ industrial scenarios.  
-- **2025-09-01**: [CODS](https://ikdd.acm.org/cods-2025/) Competition launched. Access AI Agentic Challenge [AssetOpsBench-Live](https://www.codabench.org/competitions/10206/)    
-- **Upcoming Events**: *Tutorial at AAAI 2026* – [Agents for Industry 4.0 Applications](https://ibm.github.io/AssetOpsBench/aaai_website/).  
-- Stay tuned for new tracks, competitions, and community events.
+- 🎯 **Upcoming Events**: Tutorial at **AAAI 2026 – [Agents for Industry 4.0 Applications](https://ibm.github.io/AssetOpsBench/aaai_website/)**.  
+- 🏆 **Accepted Papers**: Parts of papers are accepted at **[NeurIPS 2025](https://nips.cc/)**, **[EMNLP 2025 Research Track](https://2025.emnlp.org/)**, and **[EMNLP 2025 Industry Track](https://2025.emnlp.org/)**.  
+- 🚀 **2025-09-01**: [CODS 2025](https://ikdd.acm.org/cods-2025/) Competition launched – Access **AI Agentic Challenge** [AssetOpsBench-Live](https://www.codabench.org/competitions/10206/).  
+- 📦 **2025-06-01**: AssetOpsBench v1.0 released with **141 industrial Scenarios**.
+
+✨ Stay tuned for new tracks, competitions, and community events.
+
 ---
 
 ## Introduction
@@ -48,7 +51,7 @@ Designed for **maintenance engineers, reliability specialists, and facility plan
 
 ---
 
-## Datasets: 140+ Scenarios
+## Datasets: 141 Scenarios
 AssetOpsBench scenarios span multiple domains:  
 
 | Domain | Example Task |
@@ -59,18 +62,18 @@ AssetOpsBench scenarios span multiple domains:
 | WO | "Generate a work order for Chiller 6 anomaly detection" |
 
 Some tasks focus on a **single domain**, others are **multi-step end-to-end workflows**.  
-Explore all scenarios [here](https://github.com/IBM/AssetOpsBench/tree/main/scenarios).
+Explore all scenarios [HF-Dataset](https://huggingface.co/datasets/ibm-research/AssetOpsBench).
 
 ---
 
 ## AI Agents
-### Domain-Specific Agents
+### Domain-Specific Agents (Important tools)
 - **IoT Agent**: `get_sites`, `get_history`, `get_assets`, `get_sensors`  
 - **FMSR Agent**: `get_sensors`, `get_failure_modes`, `get_failure_sensor_mapping`  
 - **TSFM Agent**: `forecasting`, `timeseries_anomaly_detection`  
 - **WO Agent**: `generate_work_order`  
 
-### Multi-Agent Frameworks
+### Multi-Agent Frameworks (Blue Prints)
 - **[MetaAgent](https://github.com/IBM/AssetOpsBench/tree/main/src/meta_agent)**: reAct-based single-agent-as-tool orchestration  
 - **[AgentHive](https://github.com/IBM/AssetOpsBench/tree/main/src/agent_hive)**: plan-and-execute sequential workflow  
 
@@ -94,7 +97,8 @@ Example: MetaAgent leaderboard
 
 ---
 
-## 🐳 Run AssetOpsBench in Docker
+## Run AssetOpsBench in Docker
+- Please Refer to the 
 - Pre-built Docker Images: `assetopsbench-basic` (minimal) & `assetopsbench-extra` (full)  
 - Conda environment: `assetopsbench`  
 - [Full setup guide](https://github.com/IBM/AssetOpsBench/tree/main/benchmark/README.md)  
@@ -123,6 +127,11 @@ docker-compose -f benchmark/docker-compose.yml up
 
 ---
 
+[![Star History Chart](https://api.star-history.com/svg?repos=IBM/AssetOpsBench&type=Date)](https://star-history.com/#IBM/AssetOpsBench&Date)
+
+
+---
+
 ## Contributors
 
 Thanks goes to these wonderful people ✨
@@ -145,6 +154,7 @@ Thanks goes to these wonderful people ✨
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/florenzi002"><img src="https://github.com/florenzi002.png?s=50" width="50px;" alt="florenzi002"/><br /><sub><b>florenzi002</b></sub></a><br /><a href="https://github.com/IBM/AssetOpsBench/commits?author=florenzi002" title="Code">💻</a> <a href="https://github.com/IBM/AssetOpsBench/commits?author=florenzi002" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kushwaha001"><img src="https://github.com/kushwaha001.png?s=50" width="50px;" alt="kushwaha001"/><br /><sub><b>kushwaha001</b></sub></a><br /><a href="https://github.com/IBM/AssetOpsBench/commits?author=kushwaha001" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://mohit-gupta.me/"><img src="https://avatars.githubusercontent.com/u/52665879?v=4?s=50" width="50px;" alt="Mohit Gupta"/><br /><sub><b>Mohit Gupta</b></sub></a><br /><a href="https://github.com/IBM/AssetOpsBench/commits?author=Mohit-15" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/DeveloperMindset123"><img src="https://avatars.githubusercontent.com/u/109440738?v=4?s=50" width="50px;" alt="Ayan Das"/><br /><sub><b>Ayan Das</b></sub></a><br /><a href="https://github.com/IBM/AssetOpsBench/commits?author=DeveloperMindset123" title="Documentation">📖</a> <a href="https://github.com/IBM/AssetOpsBench/commits?author=DeveloperMindset123" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
@@ -155,3 +165,4 @@ Thanks goes to these wonderful people ✨
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ---
+
